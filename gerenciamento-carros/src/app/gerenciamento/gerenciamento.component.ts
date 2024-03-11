@@ -13,10 +13,12 @@ export class GerenciamentoComponent implements OnInit {
   carro: Carro = new Carro;
   alerta:boolean = false;
   nome:string;
+  id:number
 
   constructor(private carroService: CarroService){ }
 
   ngOnInit(): void {
+    this.findAllCarros;
 
   }
 
@@ -25,5 +27,22 @@ export class GerenciamentoComponent implements OnInit {
       this.listaCarros = resp;
     }
   }
+
+  cadastrarCarro(){
+    this.carroService.postCarro(this.carro).subscribe(resp: Carro)=>{
+      this.carro = resp;
+      location.assign('/gerenciamento')
+
+    }
+  }
+
+  pesquisarById(){
+    this.carroService.getByIdCarro(this.id).subscribe(resp: Carro)=>{
+      this.carro = resp;
+      location.assign('/gerenciamento');
+    }
+  }
+
+
 
 }
